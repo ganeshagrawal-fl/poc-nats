@@ -1,0 +1,21 @@
+services:
+  nats:
+    container_name: nats
+    image: nats:latest
+    command:
+      - "--debug"
+      - "--http_port"
+      - "8222"
+      - "--port"
+      - "4222"
+      - "--jetstream"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+  nats-ui:
+    container_name: nats-ui
+    image: mdawar/nats-dashboard
+    ports:
+      - "8000:80"
+    environment:
+      - PUBLIC_SERVERS_LIST=nats://nats:8222
